@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <mysql.h>
 #include <ctype.h>
+#define port 9068
 
 int main(int argc, char *argv[])
 {
@@ -55,8 +56,8 @@ int main(int argc, char *argv[])
 	// asocia el socket a cualquiera de las IP de la m?quina. 
 	//htonl formatea el numero que recibe al formato necesario
 	serv_adr.sin_addr.s_addr = htonl(INADDR_ANY);
-	// escucharemos en el port 9050
-	serv_adr.sin_port = htons(9080);
+	// escucharemos en el port 
+	serv_adr.sin_port = htons(port);
 	if (bind(sock_listen, (struct sockaddr *) &serv_adr, sizeof(serv_adr)) < 0)
 		printf ("Error al bind");
 	//La cola de peticiones pendientes no podr? ser superior a 4
@@ -80,7 +81,7 @@ int main(int argc, char *argv[])
 		while (terminar ==0)
 		{
 			
-			// Ahora recibimos su nombre, que dejamos en buff
+			// Ahora recibimos el código, que dejamos en buff
 			ret=read(sock_conn,buff, sizeof(buff));
 			printf ("Recibido\n");
 			
@@ -123,23 +124,22 @@ int main(int argc, char *argv[])
 				
 				//obtenemos los datos de una fila
 				row=mysql_fetch_row(resultado);
-				mysql_close(conn);
 				int encontrado=0;
 				if (row==NULL)
 					printf("No se han obtenido datos en la consulta\n");
 				else
 					while ((row !=NULL)&&(encontrado==0))
 				{
-						//guarda los valores de row en sus variables correspondientes
-						//convirtiendolas a enteros
+						//recorre la base de datos para ver si el usuario existe
 						if((strcmp(nombre,row[1])==0)&&(strcmp(contrasena,row[2])==0))
 						{
 							sprintf(buff2,row[0]);
 							encontrado=1;
 						}
+						row=mysql_fetch_row(resultado);
 				}
-					if (encontrado==0)
-						sprintf(buff2,"0");
+					if (encontrado==0) //si no ha encontrado al usuario en la base de datos, envia un 0
+						sprintf(buff2,"0\0");
 			}
 			
 			else if (codigo==2) //registrarse
@@ -165,28 +165,34 @@ int main(int argc, char *argv[])
 				
 				//obtenemos los datos de una fila
 				row=mysql_fetch_row(resultado);
-				mysql_close(conn);
 				int encontrado=0;
 				if (row==NULL)
 					printf("No se han obtenido datos en la consulta\n");
 				else
-					while ((row !=NULL)&&(encontrado==0))
 				{
-						//guarda los valores de row en sus variables correspondientes
-						//convirtiendolas a enteros
+					while ((row !=NULL)&&(encontrado==0))
+					{
+						//miramos si ya existe un jugador en la base de datos con el mismo nombre y contraseña
 						if((strcmp(nombre,row[1])==0)&&(strcmp(contrasena,row[2])==0))
+						//el jugador ya existe
+						//envia un 0 al cliente para informar de que este jugador ya existe
 						{
-							strcpy(buff2,"0");
+							strcpy(buff2,"0\0");
 							encontrado=1;
 						}
-				}
-					if (encontrado==0)
+					row=mysql_fetch_row(resultado); //recorre toda la tabla
+					}
+					if (encontrado==0) 
+					//el jugador no existe, asi que lo añade a la base de datos
 					{
-						
+						//como los ID van en orden (ej: 1,2,3,4...)
+						//contamos cuantos jugadores hay registrados
+						//el último id usado será igual al número de jugadores
 						strcpy (consulta,"SELECT COUNT(*) FROM jugador");
 												
 						err=mysql_query (conn, consulta);
-						if (err!=0) {
+						if (err!=0) 
+						{
 							printf ("Error al consultar datos de la base %u %s\n",
 									mysql_errno(conn), mysql_error(conn));
 							exit (1);
@@ -198,33 +204,34 @@ int main(int argc, char *argv[])
 						if (row == NULL)
 							printf ("No se han obtenido datos en la consulta\n");
 						else
-							while (row !=NULL) {
-								// la columna 0 contiene el ID del jugador
+							// la columna 0 contiene el ulitimo ID de jugador usado
 								sprintf(ID_jugador,"%d",atoi(row[0])+1);
-								row = mysql_fetch_row (resultado);
-						}
 						
+						//creamos la consulta
 						char consulta [80];
-						strcpy (consulta, "INSERT INTO jugador VALUES ('");
-						//concatenamos el dni 
+						strcpy (consulta, "INSERT INTO jugador VALUES (");
+						//concatenamos el ID_jugador 
 						strcat (consulta, ID_jugador); 
-						strcat (consulta, "','");
+						strcat (consulta, ",'");
 						//concatenamos el nombre 
 						strcat (consulta, nombre); 
-						strcat (consulta, "',");
+						strcat (consulta, "','");
 						//concatenamos la contraseña
 						strcat (consulta, contrasena); 
-						strcat (consulta, ");");
-						
+						strcat (consulta, "');");
+						printf("%s",consulta);
 						// Ahora ya podemos realizar la insercion 
 						err = mysql_query(conn, consulta);
 						if (err!=0) 
 							printf ("Error al introducir datos la base %u %s\n", 
 									mysql_errno(conn), mysql_error(conn));
 						else
-							sprintf(buff2,"%d",ID_jugador);
-				//si no existe crea el jugador
+							//la inserción se ha realizado con exito
+							//informamos al cliente enviando el ID_jugador asignado
+							sprintf(buff2,"%s\0",ID_jugador);
+							
 					}
+				}
 			}
 				
 			else if (codigo==3) 
@@ -267,15 +274,14 @@ int main(int argc, char *argv[])
 							ID_ganador_record = ID_ganador;
 							duracion_record = duracion;
 						}
-						else
-						   if((duracion<duracion_record)&&(rondas_record==rondas))
+						else if((duracion<duracion_record)&&(rondas_record==rondas))
 						{
-							
 							rondas_record = rondas;
 							ID_ganador_record = ID_ganador;
 							duracion_record = duracion;
-							
 						}
+						
+						row=mysql_fetch_row(resultado);
 						   
 				}
 					
@@ -301,16 +307,16 @@ int main(int argc, char *argv[])
 					resultado=mysql_store_result(conn);
 					row=mysql_fetch_row(resultado);
 					if(row==NULL)
-						printf("No se han obtenido datos de la consulta 2\n");
+						printf("No se han obtenido datos de la consulta \n");
 					else
 						//matriz con una fila y una columna
-						sprintf(buff2,"%s tiene el record con %d rondas.",row[0],rondas_record);
-						printf("%s tiene el record con %d rondas\0",row[0],rondas_record);
+						sprintf(buff2,"%s tiene el record con %d rondas.\0",row[0],rondas_record);
+						printf("%s tiene el record con %d rondas\n",row[0],rondas_record);
 			}
 				
-				else if (codigo==4)
-					//ID de los personajes
-				{
+			else if (codigo==4)
+			//ID de los personajes
+			{
 					p = strtok( NULL, "/");
 					strcpy (ID_partida, p);
 					
@@ -334,8 +340,9 @@ int main(int argc, char *argv[])
 					if (row==NULL)
 						printf("No se han obtenido datos en la consulta\n");
 					else
-						while (row !=NULL)
 					{
+						while (row !=NULL)
+						{
 							//guarda los valores de row en sus variables correspondientes
 							//convirtiendolas a enteros
 							if(atoi(row[0])==atoi(ID_partida))
@@ -344,7 +351,7 @@ int main(int argc, char *argv[])
 								i++;
 							}
 							row=mysql_fetch_row(resultado);
-					}
+						}
 						// El resultado debe ser una matriz con una sola fila
 						// y una columna que contiene el nombre
 						for(int j=0; j<i; j++)
@@ -374,58 +381,62 @@ int main(int argc, char *argv[])
 								strcat (buff2,frase);
 							}
 							
-						} 		
+						} 
+						strcat(buff2,"\0");
 					
-				}
-				
-				else if (codigo==5)
-					//Cuantas partidas ha jugado un jugador
-				{
-					p = strtok( NULL, "/");
-					strcpy (ID_jugador, p);
-					
-					
-					char consulta [80];
-					strcpy (consulta,"SELECT COUNT(*) FROM registro WHERE ID_jugador = '");
-					strcat (consulta, ID_jugador);
-					strcat (consulta,"'");
-					
-					
-					err=mysql_query (conn, consulta);
-					if (err!=0) {
-						printf ("Error al consultar datos de la base %u %s\n",
-								mysql_errno(conn), mysql_error(conn));
-						exit (1);
 					}
+				}
+				
+			else if (codigo==5)
+			//Cuantas partidas ha jugado un jugador
+			{
+				p = strtok( NULL, "/");
+				strcpy (ID_jugador, p);
 					
 					
-					resultado = mysql_store_result (conn);
-					row = mysql_fetch_row (resultado);
-					if (row == NULL)
-						printf ("No se han obtenido datos en la consulta\n");
-					else
-						while (row !=NULL) {
-							// la columna 0 contiene el ID del jugador
-							sprintf (buff2,"Ha jugado %s partidas", row[0]);
-							row = mysql_fetch_row (resultado);
+				char consulta [80];
+				strcpy (consulta,"SELECT COUNT(*) FROM registro WHERE ID_jugador = '");
+				strcat (consulta, ID_jugador);
+				strcat (consulta,"'");
+				
+				
+				err=mysql_query (conn, consulta);
+				if (err!=0) {
+					printf ("Error al consultar datos de la base %u %s\n",
+							mysql_errno(conn), mysql_error(conn));
+					exit (1);
+				}
+				
+				resultado = mysql_store_result (conn);
+				row = mysql_fetch_row (resultado);
+				if (row == NULL)
+					printf ("No se han obtenido datos en la consulta\n");
+				else
+					while (row !=NULL) 
+					{
+						// la columna 0 contiene el ID del jugador
+						sprintf (buff2,"Ha jugado %s partidas\0", row[0]);
+						row = mysql_fetch_row (resultado);
 					}
-					
-				}
 				
-				if(codigo!=0)
-				{
-					printf ("%s\n", buff2);
-					// Y lo enviamos
-					write (sock_conn,buff2, strlen(buff2));
-				}
+			}
+				
+			if(codigo!=0)
+			{
+				printf ("%s\n", buff2);
+				// Y lo enviamos
+				write (sock_conn,buff2, strlen(buff2));
+				strcpy(buff2,"");
+			}
 				
 				
-				// Se acabo el servicio para este cliente
-				close(sock_conn);
 				
-				mysql_close (conn);
-
+				
 		}
+		// Se acabo el servicio para este cliente
+		close(sock_conn);
+		mysql_close(conn);
+		exit(0);
 	}
 }
 

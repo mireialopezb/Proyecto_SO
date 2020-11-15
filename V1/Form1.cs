@@ -15,8 +15,8 @@ namespace V1
     {
         Socket server;
         string ID_jugador;
-        int port = 9068;
-        string ip = "192.168.1.51";
+        int port = 9092;
+        string ip = "192.168.56.102";
         int conectado = 0;
 
         public Form1()
@@ -69,12 +69,12 @@ namespace V1
 
             else if (Personajes.Checked)
             {
-                // Quiere 
+                // Quiere saber que personajes se escogieron en la partida seleccionada
                 string mensaje = "4/" + ID_Partida.Text;
                 // Enviamos al servidor el ID de la partida tecleado
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                 server.Send(msg);
-
+                ID_Partida.Text = "";
                 //Recibimos la respuesta del servidor
                 byte[] msg2 = new byte[80];
                 server.Receive(msg2);
@@ -84,7 +84,7 @@ namespace V1
 
             else if (Partidas.Checked)
             {
-                //Quiere cuantas partidas ha jugado este jugador
+                //Quiere cuantas partidas ha jugado el jugador seleccionado
                 string mensaje = "5/" + ID_Jugador.Text;
                 // Enviamos al servidor el nombre y la altura tecleados
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
@@ -96,6 +96,31 @@ namespace V1
                 mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
 
                 MessageBox.Show(mensaje);
+            }
+            else if (Conectados.Checked)
+            {
+                //Quiere saber quien esta conectado
+                string mensaje = "6/";
+                // Enviamos al servidor el nombre y la altura tecleados
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                server.Send(msg);
+
+                //Recibimos la respuesta del servidor
+                byte[] msg2 = new byte[80];
+                server.Receive(msg2);
+                mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
+
+                if (mensaje != "0")
+                {
+                    Form2 f2 = new Form2();
+                    f2.dar_nombres(mensaje);
+                    f2.Show();
+                }
+                else
+                {
+                    Form3 f3 = new Form3();
+                    f3.Show();
+                }
             }
 
         }
@@ -126,23 +151,29 @@ namespace V1
                 }
 
             }
-
-            string mensaje = "2/" + Nombre_Registro.Text + "/" + Contraseña_Registro.Text;
-            // Enviamos al servidor el nombre y la contraseña del tecleado
-            byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
-            server.Send(msg);
-
-            //Recibimos la respuesta del servidor
-            //Enviará un 0 si ese usuario ya existe, sinó enviará su ID
-            byte[] msg2 = new byte[80];
-            server.Receive(msg2);
-            mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-            if (mensaje == "0")
-                MessageBox.Show("Este usuario ya existe");
+            if ((Nombre_Registro.Text == "") || (Contraseña_Registro.Text == ""))
+                MessageBox.Show("No se han rellenado correctamente todos los campos");
             else
             {
-                ID_jugador = mensaje;
-                MessageBox.Show("Te has registrado correctamente, tu ID de jugador es: " + mensaje);
+                string mensaje = "2/" + Nombre_Registro.Text + "/" + Contraseña_Registro.Text;
+                // Enviamos al servidor el nombre y la contraseña del tecleado
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                server.Send(msg);
+
+                //Recibimos la respuesta del servidor
+                //Enviará un 0 si ese usuario ya existe, sinó enviará su ID
+                byte[] msg2 = new byte[80];
+                server.Receive(msg2);
+                mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
+                if (mensaje == "0")
+                    MessageBox.Show("Este usuario ya existe");
+                //else if (mensaje == "0")
+                // 
+                else
+                {
+                    ID_jugador = mensaje;
+                    MessageBox.Show("Te has registrado correctamente, tu ID de jugador es: " + mensaje);
+                }
             }
         }
 
@@ -206,6 +237,19 @@ namespace V1
             MessageBox.Show("Desconectado");
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
 
+        }
+
+        private void No_button_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

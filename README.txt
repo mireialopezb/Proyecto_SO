@@ -1,2 +1,1 @@
-Version 2 generada por Izan
-Version 2 verificada por Gabriel
+Version 3 generada por Izan

@@ -11,7 +11,8 @@
 #include <string.h>
 #define port 9091
 #define MAX 100
-
+//preferencias -std=c99 `mysql_config --cflags --libs`
+//ejecucion gcc -o prop prog.c `mysql_config --cflags --libs`
 
 int i;
 int j;
@@ -51,16 +52,19 @@ int Pon (ListaConectados *lista, char nombre [20], int Socket)
 void Dameconectados (ListaConectados *lista, char conectados [512])
 // pone en conectados todos los nombres separados por /, primero pone el numero de conectados
 {
+	strcpy(conectados,"");
 	for (int i=0;  i<lista->num; i++)
 	{
 		sprintf(conectados, "%s%s\n", conectados, lista->conectados[i].nombre);
 	}
+	strcat(conectados,"\0");
+	
 	if (lista->num==0)
 		strcpy(conectados,"0\0");
 }
 
 int Damesocket (ListaConectados *lista, char nombre [20])
-{ //Devuelve el socket o -1 si no est\uffe1 en la lista
+{ //Devuelve el socket o -1 si no esta en la lista
 	int i = 0;
 	int encontrado =0;
 	while ((i<lista->num)&&(encontrado == 0))
@@ -79,7 +83,7 @@ int Damesocket (ListaConectados *lista, char nombre [20])
 
 
 int Dameposicion (ListaConectados *lista, char nombre [20])
-{ //Devuelve el socket o -1 si no est\uffe1 en la lista
+{ //Devuelve el socket o -1 si no esta en la lista
 	int i = 0;
 	int encontrado =0;
 	while ((i<&lista->num)&&(encontrado == 0))
@@ -100,10 +104,10 @@ int Dameposicion (ListaConectados *lista, char nombre [20])
 
 
 int Eliminar (ListaConectados *lista, char nombre[20])
-	//Devuelve 0 si se ha eliminado correctamente, -1 si no est\uffe1 en la lista
+	//Devuelve 0 si se ha eliminado correctamente, -1 si no esta en la lista
 {
 	int pos = Dameposicion (lista, nombre);
-	printf("Posición %d\ nombre %s\n",pos,nombre);
+	printf("Posición %d nombre %s\n",pos,nombre);
 	if (pos == -1)
 		return -1;
 	else
@@ -150,12 +154,14 @@ void *AtenderCliente( void *socket)
 	int ret;
 	char buff[512];
 	char buff2[512];
+	char notificacion [500];
 	int err;
 	MYSQL_ROW row;
 	int rondas ,ID_ganador, duracion;
 	int rondas_record=1000, ID_ganador_record=1000,duracion_record=100000;
 	MYSQL_RES *resultado;
 	char consulta [80];
+	char nombre[20];
 	
 	int terminar=0;
 	while (terminar ==0)
@@ -176,7 +182,7 @@ void *AtenderCliente( void *socket)
 		
 		char *p = strtok( buff, "/");
 		int codigo =  atoi (p);
-		char nombre[20],contrasena[20],ID_jugador[10], ID_partida[10];
+		char contrasena[20],ID_jugador[10], ID_partida[10];
 		
 		if (codigo == 0)
 			terminar=1;
@@ -213,17 +219,30 @@ void *AtenderCliente( void *socket)
 					//recorre la base de datos para ver si el usuario existe
 					if((strcmp(nombre,row[1])==0)&&(strcmp(contrasena,row[2])==0))
 					{
-						sprintf(buff2,row[0]);
+						sprintf(buff2,"1/%s\0",row[0]);
 						encontrado=1;
 						pthread_mutex_lock(&mutex); //no me interrumpas ahora
+						//Añadimos el usuario a la lista de conectados
 						Pon(&milista,nombre,j);
 						j++;
 						pthread_mutex_unlock(&mutex); //ya puedes interrumpirme
+						
+						//Envia la lista de conectados actualizada a todos los usuarios
+						char conectados [512];
+						Dameconectados (&milista, conectados);
+						sprintf(notificacion,"6/%s\0",conectados);
+						
+						for(int j =0; j<i;j++)
+						{
+							write(sockets[j],notificacion,strlen(notificacion));
+							printf("%s\n",notificacion);
+						}
+						strcpy(notificacion,"");
 					}
 					row=mysql_fetch_row(resultado);
 			}
 				if (encontrado==0) //si no ha encontrado al usuario en la base de datos, envia un 0
-					sprintf(buff2,"0\0");
+					sprintf(buff2,"1/0\0");
 		}
 		
 		else if (codigo==2) //registrarse
@@ -261,7 +280,7 @@ void *AtenderCliente( void *socket)
 						//el jugador ya existe
 						//envia un 0 al cliente para informar de que este jugador ya existe
 					{
-						strcpy(buff2,"0\0");
+						strcpy(buff2,"2/0\0");
 						encontrado=1;
 					}
 					row=mysql_fetch_row(resultado); //recorre toda la tabla
@@ -305,7 +324,11 @@ void *AtenderCliente( void *socket)
 					strcat (consulta, contrasena); 
 					strcat (consulta, "');");
 					printf("%s",consulta);
-					// Ahora ya podemos realizar la insercion 
+					
+					// Añadimos el usuario a la lista de conectados
+					Pon(&milista,nombre,j);
+					j++;
+						
 					err = mysql_query(conn, consulta);
 					if (err!=0) 
 						printf ("Error al introducir datos la base %u %s\n", 
@@ -313,8 +336,21 @@ void *AtenderCliente( void *socket)
 					else
 						//la inserción se ha realizado con exito
 						//informamos al cliente enviando el ID_jugador asignado
-						sprintf(buff2,"%s\0",ID_jugador);
+						sprintf(buff2,"2/%s\0",ID_jugador);
+					
 					pthread_mutex_unlock(&mutex); //ya puedes interrumpirme
+					
+					char conectados [512];
+					//Envia la lista de conectados actualizada a todos los usuarios
+					Dameconectados (&milista, conectados);
+					sprintf(notificacion,"6/%s\0",conectados);
+					
+					for(int j =0; j<i;j++)
+					{
+						write(sockets[j],notificacion,strlen(notificacion));
+						printf("%s\n",notificacion);
+					}
+					strcpy(notificacion,"");
 				}
 
 			}
@@ -467,21 +503,49 @@ void *AtenderCliente( void *socket)
 		}
 		
 		
-		else if (codigo==6)
-			//quien esta conectado
-		{
-			Dameconectados (&milista, buff2);
-		}
+			
+		
 		if(codigo!=0)
 		{
 			printf ("%s\n", buff2);
 			// Y lo enviamos
 			write (sock_conn,buff2, strlen(buff2));
+			
 			strcpy(buff2,"");
+			
+			
 		}
 		
 	}
 	
+	pthread_mutex_lock(&mutex); //no me interrumpas ahora
+	
+	//eliminamos al usuario de la lista de conectados 
+	int eliminar= Eliminar (&milista, nombre);
+	
+	pthread_mutex_unlock(&mutex); //ya puedes interrumpirme
+
+	
+	if (eliminar==0)
+		printf("Se ha eliminado a %s de la lista de conectados",nombre);
+	else
+		printf("Error al eliminar a %s de la lista de conectados",nombre);
+	
+	//Envia la lista de conectados actualizada a todos los usuarios
+	char conectados[512];
+	Dameconectados (&milista, conectados);
+	sprintf(notificacion,"6/%s\0",conectados);
+	
+	printf("%s\n",notificacion);
+	
+	//notificar a todos los clientes conectados
+	for(int j =0; j<i;j++)
+	{
+		write(sockets[j],notificacion,strlen(notificacion));
+	}
+	strcpy(notificacion,"");
+	//Desconectamos al usuario del servidor
+	strcpy(buff2,"");
 	close(sock_conn);
 	mysql_close(conn);
 }

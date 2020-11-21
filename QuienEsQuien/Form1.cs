@@ -8,20 +8,89 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace V1
 {
     public partial class Form1 : Form
     {
         Socket server;
+        Thread atender;
         string ID_jugador;
-        int port = 9092;
-        string ip = "192.168.56.102";
+        int port = 9091;
+        string ip = "192.168.1.55";
         int conectado = 0;
 
         public Form1()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
+            // Para que los elementos de los formularios puedan ser accedidos
+            // desde threads diferentes
+            Conectados_label.Text = "No hay nadie conectado";
+        }
+
+        private void AtenderServidor()
+        {
+            while (true)
+            {
+                //Recibimos la respuesta del servidor
+                byte[] msg2 = new byte[80];
+                server.Receive(msg2);
+                string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+                int codigo = Convert.ToInt32(trozos[0]);
+                string mensaje = mensaje = trozos[1].Split('\0')[0];
+
+                switch (codigo)
+                {
+                    case 1: // Iniciar sesion
+                        //La respuesta sera 0 si no se ha encontrado el usuario en labase de datos, sinó enviara su ID
+                        if (mensaje == "0")
+                            MessageBox.Show("Este usuario no existe");
+                        else
+                        {
+                            ID_jugador = mensaje;
+                            MessageBox.Show("Se ha iniciado sesión correctamente, tu ID de jugador es: " + mensaje);
+                        }
+                        break;
+
+                    case 2: // Registrarse
+                        //La respuesta será 0 si se ha encontrado el usuario en labase de datos, sinó enviara su ID
+                        if (mensaje == "0")
+                            MessageBox.Show("Este usuario ya existe");
+                        else
+                        {
+                            ID_jugador = mensaje;
+                            MessageBox.Show("Te has registrado correctamente, tu ID de jugador es: " + mensaje);
+                        }
+
+                        break;
+
+                    case 3: // quien tiene el record
+                        MessageBox.Show(mensaje);
+                        break;
+
+                    case 4: // que personajes se escogieron en la partida
+                        MessageBox.Show(mensaje);
+                        break;
+
+                    case 5: // cuantas partidas ha jugado el jugador
+                        MessageBox.Show(mensaje);
+                        break;
+
+                    case 6: // conectados
+                        if (mensaje != "0")
+                        {
+                            Conectados_label.Text = mensaje;
+                        }
+                        else
+                        {
+                            Conectados_label.Text = "No hay nadie conectado";
+                        }
+                        break;
+
+                }
+            }
         }
 
         private void Consulta_Button_Click(object sender, EventArgs e)
@@ -57,14 +126,7 @@ namespace V1
                 string mensaje = "3/";
                 // Enviamos al servidor el codigo
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
-                server.Send(msg);
-
-                //Recibimos la respuesta del servidor
-                byte[] msg2 = new byte[80];
-                server.Receive(msg2);
-                mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-
-                MessageBox.Show(mensaje);
+                server.Send(msg);                
             }
 
             else if (Personajes.Checked)
@@ -75,11 +137,6 @@ namespace V1
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                 server.Send(msg);
                 ID_Partida.Text = "";
-                //Recibimos la respuesta del servidor
-                byte[] msg2 = new byte[80];
-                server.Receive(msg2);
-                mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-                MessageBox.Show(mensaje);
             }
 
             else if (Partidas.Checked)
@@ -89,40 +146,7 @@ namespace V1
                 // Enviamos al servidor el nombre y la altura tecleados
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                 server.Send(msg);
-
-                //Recibimos la respuesta del servidor
-                byte[] msg2 = new byte[80];
-                server.Receive(msg2);
-                mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-
-                MessageBox.Show(mensaje);
             }
-            else if (Conectados.Checked)
-            {
-                //Quiere saber quien esta conectado
-                string mensaje = "6/";
-                // Enviamos al servidor el nombre y la altura tecleados
-                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
-                server.Send(msg);
-
-                //Recibimos la respuesta del servidor
-                byte[] msg2 = new byte[80];
-                server.Receive(msg2);
-                mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-
-                if (mensaje != "0")
-                {
-                    Form2 f2 = new Form2();
-                    f2.dar_nombres(mensaje);
-                    f2.Show();
-                }
-                else
-                {
-                    Form3 f3 = new Form3();
-                    f3.Show();
-                }
-            }
-
         }
 
         private void Registrarse_Button_Click(object sender, EventArgs e)
@@ -150,30 +174,24 @@ namespace V1
                     return;
                 }
 
+                // pongo en marcha el thread que atendera los mensajes del servidor
+                ThreadStart ts = delegate { AtenderServidor(); };
+                atender = new Thread(ts);
+                atender.Start();
+
+                groupBox_inciar.Visible = false;
+                groupBox_registro.Visible = false;
+                groupBox_consultas.Visible = true;
+
             }
             if ((Nombre_Registro.Text == "") || (Contraseña_Registro.Text == ""))
                 MessageBox.Show("No se han rellenado correctamente todos los campos");
             else
             {
-                string mensaje = "2/" + Nombre_Registro.Text + "/" + Contraseña_Registro.Text;
+                string msj = "2/" + Nombre_Registro.Text + "/" + Contraseña_Registro.Text;
                 // Enviamos al servidor el nombre y la contraseña del tecleado
-                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(msj);
                 server.Send(msg);
-
-                //Recibimos la respuesta del servidor
-                //Enviará un 0 si ese usuario ya existe, sinó enviará su ID
-                byte[] msg2 = new byte[80];
-                server.Receive(msg2);
-                mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-                if (mensaje == "0")
-                    MessageBox.Show("Este usuario ya existe");
-                //else if (mensaje == "0")
-                // 
-                else
-                {
-                    ID_jugador = mensaje;
-                    MessageBox.Show("Te has registrado correctamente, tu ID de jugador es: " + mensaje);
-                }
             }
         }
 
@@ -202,54 +220,36 @@ namespace V1
                     return;
                 }
 
+                // pongo en marcha el thread que atendera los mensajes del servidor
+                ThreadStart ts = delegate { AtenderServidor(); };
+                atender = new Thread(ts);
+                atender.Start();
             }
 
-            string mensaje = "1/" + Nombre.Text + "/" + Contraseña.Text;
+            string msj = "1/" + Nombre.Text + "/" + Contraseña.Text;
             // Enviamos al servidor el nombre y la contraseño tecleado
-            byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+            byte[] msg = System.Text.Encoding.ASCII.GetBytes(msj);
             server.Send(msg);
 
-            //Recibimos la respuesta del servidor
-            //La respuesta será 0 si no se ha encontrado el usuario en labase de datos, sinó enviara su ID
-            byte[] msg2 = new byte[80];
-            server.Receive(msg2);
-            mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-            if (mensaje == "0")
-                MessageBox.Show("Este usuario no existe");
-            else
-            {
-                ID_jugador = mensaje;
-                MessageBox.Show("Se ha iniciado sesión correctamente, tu ID de jugador es: " + mensaje);
-            }
+            groupBox_inciar.Visible = false;
+            groupBox_registro.Visible = false;
+            groupBox_consultas.Visible = true;
 
         }
 
         private void Desconectar_Click(object sender, EventArgs e)
         {
-            string mensaje = "0/";
-            byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+            Conectados_label.Text = "";
+            string msj = "0/";
+            byte[] msg = System.Text.Encoding.ASCII.GetBytes(msj);
             server.Send(msg);
 
             // Nos desconectamos
+            atender.Abort();
             server.Shutdown(SocketShutdown.Both);
             conectado = 0;
             server.Close();
             MessageBox.Show("Desconectado");
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void No_button_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace V1
+﻿namespace QeQ
 {
     partial class Form1
     {

@@ -18,7 +18,7 @@ namespace V1
         Thread atender;
         string ID_jugador;
         int port = 9091;
-        string ip = "192.168.1.55";
+        string ip = "147.83.117.22";
         int conectado = 0;
 
         public Form1()
@@ -251,5 +251,7 @@ namespace V1
             server.Close();
             MessageBox.Show("Desconectado");
         }
+
+
     }
 }

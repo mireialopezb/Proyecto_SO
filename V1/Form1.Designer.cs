@@ -855,6 +855,7 @@
             this.Controls.Add(this.groupBox_inciar);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox_inciar.ResumeLayout(false);
             this.groupBox_inciar.PerformLayout();
             this.groupBox_registro.ResumeLayout(false);

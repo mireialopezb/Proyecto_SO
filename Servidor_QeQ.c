@@ -9,7 +9,7 @@
 #include <ctype.h>
 #include <pthread.h>
 #include <string.h>
-#define port 9091
+#define port 50015
 #define MAX 100
 //preferencias -std=c99 `mysql_config --cflags --libs`
 //ejecucion gcc -o prop prog.c `mysql_config --cflags --libs`
@@ -135,7 +135,7 @@ void *AtenderCliente( void *socket)
 	}
 	
 	//inicializar la conexión
-	conn =mysql_real_connect(conn,"localhost","root","mysql","juego",0,NULL,0);
+	conn =mysql_real_connect(conn,"shiva2.upc.es","root","mysql","M4_juego",0,NULL,0);
 	if(conn==NULL)
 	{
 		printf("Error al iniciar la conexión: %u %s\n",

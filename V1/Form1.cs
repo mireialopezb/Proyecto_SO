@@ -12,6 +12,7 @@ using System.Threading;
 
 namespace V1
 {
+
     public partial class Form1 : Form
     {
         Socket server;

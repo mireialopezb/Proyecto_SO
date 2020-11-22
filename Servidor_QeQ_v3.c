@@ -11,6 +11,7 @@
 #include <string.h>
 #define port 50015
 #define MAX 100
+
 //preferencias -std=c99 `mysql_config --cflags --libs`
 //ejecucion gcc -o prop prog.c `mysql_config --cflags --libs`
 

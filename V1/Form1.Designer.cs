@@ -1,4 +1,4 @@
-﻿namespace QeQ
+﻿namespace V1
 {
     partial class Form1
     {
@@ -114,11 +114,11 @@
             this.groupBox_inciar.Controls.Add(this.label2);
             this.groupBox_inciar.Controls.Add(this.label1);
             this.groupBox_inciar.Controls.Add(this.Iniciar_Button);
-            this.groupBox_inciar.Location = new System.Drawing.Point(31, 36);
+            this.groupBox_inciar.Location = new System.Drawing.Point(37, 36);
             this.groupBox_inciar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox_inciar.Name = "groupBox_inciar";
             this.groupBox_inciar.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox_inciar.Size = new System.Drawing.Size(464, 100);
+            this.groupBox_inciar.Size = new System.Drawing.Size(458, 100);
             this.groupBox_inciar.TabIndex = 0;
             this.groupBox_inciar.TabStop = false;
             this.groupBox_inciar.Text = "Iniciar sesión";
@@ -185,11 +185,11 @@
             this.groupBox_registro.Controls.Add(this.label5);
             this.groupBox_registro.Controls.Add(this.label6);
             this.groupBox_registro.Controls.Add(this.Registrarse_Button);
-            this.groupBox_registro.Location = new System.Drawing.Point(35, 158);
+            this.groupBox_registro.Location = new System.Drawing.Point(37, 158);
             this.groupBox_registro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox_registro.Name = "groupBox_registro";
             this.groupBox_registro.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox_registro.Size = new System.Drawing.Size(461, 100);
+            this.groupBox_registro.Size = new System.Drawing.Size(459, 100);
             this.groupBox_registro.TabIndex = 0;
             this.groupBox_registro.TabStop = false;
             this.groupBox_registro.Text = "¿No tienes cuenta?";
@@ -250,11 +250,11 @@
             this.groupBox_consultas.Controls.Add(this.label3);
             this.groupBox_consultas.Controls.Add(this.label4);
             this.groupBox_consultas.Controls.Add(this.Consulta_Button);
-            this.groupBox_consultas.Location = new System.Drawing.Point(28, 36);
+            this.groupBox_consultas.Location = new System.Drawing.Point(37, 36);
             this.groupBox_consultas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox_consultas.Name = "groupBox_consultas";
             this.groupBox_consultas.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox_consultas.Size = new System.Drawing.Size(468, 204);
+            this.groupBox_consultas.Size = new System.Drawing.Size(459, 207);
             this.groupBox_consultas.TabIndex = 0;
             this.groupBox_consultas.TabStop = false;
             this.groupBox_consultas.Text = "¿Qué quieres saber?";
@@ -334,7 +334,7 @@
             // 
             // Desconectar
             // 
-            this.Desconectar.Location = new System.Drawing.Point(373, 495);
+            this.Desconectar.Location = new System.Drawing.Point(373, 296);
             this.Desconectar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Desconectar.Name = "Desconectar";
             this.Desconectar.Size = new System.Drawing.Size(123, 28);
@@ -787,7 +787,7 @@
             // dataGrid_conectados
             // 
             this.dataGrid_conectados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGrid_conectados.Location = new System.Drawing.Point(35, 541);
+            this.dataGrid_conectados.Location = new System.Drawing.Point(35, 342);
             this.dataGrid_conectados.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGrid_conectados.Name = "dataGrid_conectados";
             this.dataGrid_conectados.RowTemplate.Height = 24;
@@ -796,7 +796,7 @@
             // 
             // Conectados_button
             // 
-            this.Conectados_button.Location = new System.Drawing.Point(35, 496);
+            this.Conectados_button.Location = new System.Drawing.Point(35, 297);
             this.Conectados_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Conectados_button.Name = "Conectados_button";
             this.Conectados_button.Size = new System.Drawing.Size(201, 34);
@@ -829,7 +829,7 @@
             // Conectados_label
             // 
             this.Conectados_label.AutoSize = true;
-            this.Conectados_label.Location = new System.Drawing.Point(265, 551);
+            this.Conectados_label.Location = new System.Drawing.Point(265, 352);
             this.Conectados_label.Name = "Conectados_label";
             this.Conectados_label.Size = new System.Drawing.Size(46, 17);
             this.Conectados_label.TabIndex = 10;
@@ -855,7 +855,6 @@
             this.Controls.Add(this.groupBox_inciar);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox_inciar.ResumeLayout(false);
             this.groupBox_inciar.PerformLayout();
             this.groupBox_registro.ResumeLayout(false);

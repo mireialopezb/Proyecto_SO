@@ -20,7 +20,7 @@ namespace V1
         int port = 9091;
         string ip = "192.168.1.55";
         //
-        string directorio = "C:/Users/mirei/OneDrive/Documents/UNI/2B/SO/Proyecto/Sucio/Proyecto/SO_V22/V1/bin/Debug/Fotos/";
+        string directorio = "C:/SO/Proyectog/Proyecto_SO/V1/bin/Debug/Fotos/";
         int conectado = 0;
         string nombre, invitado;
         int num_conectados = 0;

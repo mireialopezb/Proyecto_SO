@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox_inciar = new System.Windows.Forms.GroupBox();
             this.Contraseña = new System.Windows.Forms.TextBox();
             this.Nombre = new System.Windows.Forms.TextBox();
@@ -56,32 +55,32 @@
             this.Gabri_button = new System.Windows.Forms.Button();
             this.Julen_button = new System.Windows.Forms.Button();
             this.Angela_button = new System.Windows.Forms.Button();
-            this.Dvid_Button = new System.Windows.Forms.Button();
+            this.David_Button = new System.Windows.Forms.Button();
             this.CristinaR_button = new System.Windows.Forms.Button();
             this.Izan_button = new System.Windows.Forms.Button();
             this.Enric_button = new System.Windows.Forms.Button();
             this.Mireia_button = new System.Windows.Forms.Button();
             this.Victor_button = new System.Windows.Forms.Button();
             this.Javi_button = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.Antonia_button = new System.Windows.Forms.Button();
             this.Andrea_button = new System.Windows.Forms.Button();
             this.Arnau_button = new System.Windows.Forms.Button();
             this.Emma_button = new System.Windows.Forms.Button();
-            this.panel13 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.panel14 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel15 = new System.Windows.Forms.Panel();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.panel12 = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel_Cristina_B = new System.Windows.Forms.Panel();
+            this.panel_Angela = new System.Windows.Forms.Panel();
+            this.panel_Gabri = new System.Windows.Forms.Panel();
+            this.panel_Enric = new System.Windows.Forms.Panel();
+            this.panel_Julen = new System.Windows.Forms.Panel();
+            this.panel_Izan = new System.Windows.Forms.Panel();
+            this.panel_Andrea = new System.Windows.Forms.Panel();
+            this.panel_David = new System.Windows.Forms.Panel();
+            this.panel_Victor = new System.Windows.Forms.Panel();
+            this.panel_Mireia = new System.Windows.Forms.Panel();
+            this.panel_Arnau = new System.Windows.Forms.Panel();
+            this.panel_Cristina_R = new System.Windows.Forms.Panel();
+            this.panel_Antonia = new System.Windows.Forms.Panel();
+            this.panel_Javi = new System.Windows.Forms.Panel();
+            this.panel_Emma = new System.Windows.Forms.Panel();
             this.Pregunta = new System.Windows.Forms.GroupBox();
             this.Pregunta_textBox = new System.Windows.Forms.TextBox();
             this.Enviar_button = new System.Windows.Forms.Button();
@@ -91,11 +90,19 @@
             this.No_button = new System.Windows.Forms.Button();
             this.Si_button = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.dataGrid_conectados = new System.Windows.Forms.DataGridView();
-            this.Conectados_button = new System.Windows.Forms.Button();
-            this.Invitar_button = new System.Windows.Forms.Button();
             this.Chat_groupBox = new System.Windows.Forms.GroupBox();
-            this.Conectados_label = new System.Windows.Forms.Label();
+            this.Invitacion_groupBox = new System.Windows.Forms.GroupBox();
+            this.rechazar_button = new System.Windows.Forms.Button();
+            this.aceptar_button = new System.Windows.Forms.Button();
+            this.invitacion_label = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Conectados_Grid = new System.Windows.Forms.DataGridView();
+            this.Invitar = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.Seleciconar_button = new System.Windows.Forms.Button();
+            this.panel_Seleccionado = new System.Windows.Forms.Panel();
             this.groupBox_inciar.SuspendLayout();
             this.groupBox_registro.SuspendLayout();
             this.groupBox_consultas.SuspendLayout();
@@ -103,7 +110,11 @@
             this.Pregunta.SuspendLayout();
             this.Turno.SuspendLayout();
             this.Responde.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid_conectados)).BeginInit();
+            this.Invitacion_groupBox.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Conectados_Grid)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox_inciar
@@ -114,11 +125,11 @@
             this.groupBox_inciar.Controls.Add(this.label2);
             this.groupBox_inciar.Controls.Add(this.label1);
             this.groupBox_inciar.Controls.Add(this.Iniciar_Button);
-            this.groupBox_inciar.Location = new System.Drawing.Point(37, 36);
+            this.groupBox_inciar.Location = new System.Drawing.Point(31, 36);
             this.groupBox_inciar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox_inciar.Name = "groupBox_inciar";
             this.groupBox_inciar.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox_inciar.Size = new System.Drawing.Size(458, 100);
+            this.groupBox_inciar.Size = new System.Drawing.Size(464, 100);
             this.groupBox_inciar.TabIndex = 0;
             this.groupBox_inciar.TabStop = false;
             this.groupBox_inciar.Text = "Iniciar sesión";
@@ -185,14 +196,14 @@
             this.groupBox_registro.Controls.Add(this.label5);
             this.groupBox_registro.Controls.Add(this.label6);
             this.groupBox_registro.Controls.Add(this.Registrarse_Button);
-            this.groupBox_registro.Location = new System.Drawing.Point(37, 158);
+            this.groupBox_registro.Location = new System.Drawing.Point(35, 158);
             this.groupBox_registro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox_registro.Name = "groupBox_registro";
             this.groupBox_registro.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox_registro.Size = new System.Drawing.Size(459, 100);
+            this.groupBox_registro.Size = new System.Drawing.Size(461, 100);
             this.groupBox_registro.TabIndex = 0;
             this.groupBox_registro.TabStop = false;
-            this.groupBox_registro.Text = "¿No tienes cuenta?";
+            this.groupBox_registro.Text = "¿No tienes cuenta? Regístrate";
             // 
             // Contraseña_Registro
             // 
@@ -250,11 +261,11 @@
             this.groupBox_consultas.Controls.Add(this.label3);
             this.groupBox_consultas.Controls.Add(this.label4);
             this.groupBox_consultas.Controls.Add(this.Consulta_Button);
-            this.groupBox_consultas.Location = new System.Drawing.Point(37, 36);
+            this.groupBox_consultas.Location = new System.Drawing.Point(28, 36);
             this.groupBox_consultas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox_consultas.Name = "groupBox_consultas";
             this.groupBox_consultas.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox_consultas.Size = new System.Drawing.Size(459, 207);
+            this.groupBox_consultas.Size = new System.Drawing.Size(468, 204);
             this.groupBox_consultas.TabIndex = 0;
             this.groupBox_consultas.TabStop = false;
             this.groupBox_consultas.Text = "¿Qué quieres saber?";
@@ -334,7 +345,7 @@
             // 
             // Desconectar
             // 
-            this.Desconectar.Location = new System.Drawing.Point(373, 296);
+            this.Desconectar.Location = new System.Drawing.Point(368, 398);
             this.Desconectar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Desconectar.Name = "Desconectar";
             this.Desconectar.Size = new System.Drawing.Size(123, 28);
@@ -350,32 +361,32 @@
             this.Tablero.Controls.Add(this.Gabri_button);
             this.Tablero.Controls.Add(this.Julen_button);
             this.Tablero.Controls.Add(this.Angela_button);
-            this.Tablero.Controls.Add(this.Dvid_Button);
+            this.Tablero.Controls.Add(this.David_Button);
             this.Tablero.Controls.Add(this.CristinaR_button);
             this.Tablero.Controls.Add(this.Izan_button);
             this.Tablero.Controls.Add(this.Enric_button);
             this.Tablero.Controls.Add(this.Mireia_button);
             this.Tablero.Controls.Add(this.Victor_button);
             this.Tablero.Controls.Add(this.Javi_button);
-            this.Tablero.Controls.Add(this.button6);
+            this.Tablero.Controls.Add(this.Antonia_button);
             this.Tablero.Controls.Add(this.Andrea_button);
             this.Tablero.Controls.Add(this.Arnau_button);
             this.Tablero.Controls.Add(this.Emma_button);
-            this.Tablero.Controls.Add(this.panel13);
-            this.Tablero.Controls.Add(this.panel7);
-            this.Tablero.Controls.Add(this.panel14);
-            this.Tablero.Controls.Add(this.panel4);
-            this.Tablero.Controls.Add(this.panel15);
-            this.Tablero.Controls.Add(this.panel8);
-            this.Tablero.Controls.Add(this.panel2);
-            this.Tablero.Controls.Add(this.panel9);
-            this.Tablero.Controls.Add(this.panel5);
-            this.Tablero.Controls.Add(this.panel10);
-            this.Tablero.Controls.Add(this.panel3);
-            this.Tablero.Controls.Add(this.panel11);
-            this.Tablero.Controls.Add(this.panel6);
-            this.Tablero.Controls.Add(this.panel12);
-            this.Tablero.Controls.Add(this.panel1);
+            this.Tablero.Controls.Add(this.panel_Cristina_B);
+            this.Tablero.Controls.Add(this.panel_Angela);
+            this.Tablero.Controls.Add(this.panel_Gabri);
+            this.Tablero.Controls.Add(this.panel_Enric);
+            this.Tablero.Controls.Add(this.panel_Julen);
+            this.Tablero.Controls.Add(this.panel_Izan);
+            this.Tablero.Controls.Add(this.panel_Andrea);
+            this.Tablero.Controls.Add(this.panel_David);
+            this.Tablero.Controls.Add(this.panel_Victor);
+            this.Tablero.Controls.Add(this.panel_Mireia);
+            this.Tablero.Controls.Add(this.panel_Arnau);
+            this.Tablero.Controls.Add(this.panel_Cristina_R);
+            this.Tablero.Controls.Add(this.panel_Antonia);
+            this.Tablero.Controls.Add(this.panel_Javi);
+            this.Tablero.Controls.Add(this.panel_Emma);
             this.Tablero.Location = new System.Drawing.Point(528, 34);
             this.Tablero.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Tablero.Name = "Tablero";
@@ -393,6 +404,7 @@
             this.CristinaB_button.TabIndex = 25;
             this.CristinaB_button.Text = "Cristina B";
             this.CristinaB_button.UseVisualStyleBackColor = true;
+            this.CristinaB_button.Click += new System.EventHandler(this.CristinaB_button_Click);
             // 
             // Gabri_button
             // 
@@ -403,6 +415,7 @@
             this.Gabri_button.TabIndex = 24;
             this.Gabri_button.Text = "Gabri";
             this.Gabri_button.UseVisualStyleBackColor = true;
+            this.Gabri_button.Click += new System.EventHandler(this.Gabri_button_Click);
             // 
             // Julen_button
             // 
@@ -413,6 +426,7 @@
             this.Julen_button.TabIndex = 23;
             this.Julen_button.Text = "Julen";
             this.Julen_button.UseVisualStyleBackColor = true;
+            this.Julen_button.Click += new System.EventHandler(this.Julen_button_Click);
             // 
             // Angela_button
             // 
@@ -423,16 +437,18 @@
             this.Angela_button.TabIndex = 22;
             this.Angela_button.Text = "Angela";
             this.Angela_button.UseVisualStyleBackColor = true;
+            this.Angela_button.Click += new System.EventHandler(this.Angela_button_Click);
             // 
-            // Dvid_Button
+            // David_Button
             // 
-            this.Dvid_Button.Location = new System.Drawing.Point(627, 462);
-            this.Dvid_Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Dvid_Button.Name = "Dvid_Button";
-            this.Dvid_Button.Size = new System.Drawing.Size(131, 32);
-            this.Dvid_Button.TabIndex = 21;
-            this.Dvid_Button.Text = "David";
-            this.Dvid_Button.UseVisualStyleBackColor = true;
+            this.David_Button.Location = new System.Drawing.Point(627, 462);
+            this.David_Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.David_Button.Name = "David_Button";
+            this.David_Button.Size = new System.Drawing.Size(131, 32);
+            this.David_Button.TabIndex = 21;
+            this.David_Button.Text = "David";
+            this.David_Button.UseVisualStyleBackColor = true;
+            this.David_Button.Click += new System.EventHandler(this.David_Button_Click);
             // 
             // CristinaR_button
             // 
@@ -443,6 +459,7 @@
             this.CristinaR_button.TabIndex = 20;
             this.CristinaR_button.Text = "Cristina R";
             this.CristinaR_button.UseVisualStyleBackColor = true;
+            this.CristinaR_button.Click += new System.EventHandler(this.CristinaR_button_Click);
             // 
             // Izan_button
             // 
@@ -453,6 +470,7 @@
             this.Izan_button.TabIndex = 19;
             this.Izan_button.Text = "Izan";
             this.Izan_button.UseVisualStyleBackColor = true;
+            this.Izan_button.Click += new System.EventHandler(this.Izan_button_Click);
             // 
             // Enric_button
             // 
@@ -463,6 +481,7 @@
             this.Enric_button.TabIndex = 19;
             this.Enric_button.Text = "Enric";
             this.Enric_button.UseVisualStyleBackColor = true;
+            this.Enric_button.Click += new System.EventHandler(this.Enric_button_Click);
             // 
             // Mireia_button
             // 
@@ -473,6 +492,7 @@
             this.Mireia_button.TabIndex = 18;
             this.Mireia_button.Text = "Mireia";
             this.Mireia_button.UseVisualStyleBackColor = true;
+            this.Mireia_button.Click += new System.EventHandler(this.Mireia_button_Click);
             // 
             // Victor_button
             // 
@@ -483,6 +503,7 @@
             this.Victor_button.TabIndex = 18;
             this.Victor_button.Text = "Victor";
             this.Victor_button.UseVisualStyleBackColor = true;
+            this.Victor_button.Click += new System.EventHandler(this.Victor_button_Click);
             // 
             // Javi_button
             // 
@@ -493,16 +514,18 @@
             this.Javi_button.TabIndex = 17;
             this.Javi_button.Text = "Javi";
             this.Javi_button.UseVisualStyleBackColor = true;
+            this.Javi_button.Click += new System.EventHandler(this.Javi_button_Click);
             // 
-            // button6
+            // Antonia_button
             // 
-            this.button6.Location = new System.Drawing.Point(229, 210);
-            this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(131, 32);
-            this.button6.TabIndex = 17;
-            this.button6.Text = "Bad bunny";
-            this.button6.UseVisualStyleBackColor = true;
+            this.Antonia_button.Location = new System.Drawing.Point(229, 210);
+            this.Antonia_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Antonia_button.Name = "Antonia_button";
+            this.Antonia_button.Size = new System.Drawing.Size(131, 32);
+            this.Antonia_button.TabIndex = 17;
+            this.Antonia_button.Text = "Antonia";
+            this.Antonia_button.UseVisualStyleBackColor = true;
+            this.Antonia_button.Click += new System.EventHandler(this.Antonia_button_Click);
             // 
             // Andrea_button
             // 
@@ -513,6 +536,7 @@
             this.Andrea_button.TabIndex = 16;
             this.Andrea_button.Text = "Andrea";
             this.Andrea_button.UseVisualStyleBackColor = true;
+            this.Andrea_button.Click += new System.EventHandler(this.Andrea_button_Click);
             // 
             // Arnau_button
             // 
@@ -523,6 +547,7 @@
             this.Arnau_button.TabIndex = 15;
             this.Arnau_button.Text = "Arnau";
             this.Arnau_button.UseVisualStyleBackColor = true;
+            this.Arnau_button.Click += new System.EventHandler(this.Arnau_button_Click);
             // 
             // Emma_button
             // 
@@ -533,156 +558,142 @@
             this.Emma_button.TabIndex = 14;
             this.Emma_button.Text = "Emma";
             this.Emma_button.UseVisualStyleBackColor = true;
+            this.Emma_button.Click += new System.EventHandler(this.Emma_button_Click);
             // 
-            // panel13
+            // panel_Cristina_B
             // 
-            this.panel13.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel13.BackgroundImage")));
-            this.panel13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel13.Location = new System.Drawing.Point(824, 540);
-            this.panel13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(131, 156);
-            this.panel13.TabIndex = 12;
+            this.panel_Cristina_B.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Cristina_B.Location = new System.Drawing.Point(824, 540);
+            this.panel_Cristina_B.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_Cristina_B.Name = "panel_Cristina_B";
+            this.panel_Cristina_B.Size = new System.Drawing.Size(131, 156);
+            this.panel_Cristina_B.TabIndex = 12;
             // 
-            // panel7
+            // panel_Angela
             // 
-            this.panel7.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel7.BackgroundImage")));
-            this.panel7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel7.Location = new System.Drawing.Point(627, 539);
-            this.panel7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(131, 156);
-            this.panel7.TabIndex = 9;
+            this.panel_Angela.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Angela.Location = new System.Drawing.Point(627, 539);
+            this.panel_Angela.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_Angela.Name = "panel_Angela";
+            this.panel_Angela.Size = new System.Drawing.Size(131, 156);
+            this.panel_Angela.TabIndex = 9;
             // 
-            // panel14
+            // panel_Gabri
             // 
-            this.panel14.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel14.BackgroundImage")));
-            this.panel14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel14.Location = new System.Drawing.Point(824, 300);
-            this.panel14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(131, 156);
-            this.panel14.TabIndex = 13;
+            this.panel_Gabri.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Gabri.Location = new System.Drawing.Point(824, 300);
+            this.panel_Gabri.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_Gabri.Name = "panel_Gabri";
+            this.panel_Gabri.Size = new System.Drawing.Size(131, 156);
+            this.panel_Gabri.TabIndex = 13;
             // 
-            // panel4
+            // panel_Enric
             // 
-            this.panel4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel4.BackgroundImage")));
-            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel4.Location = new System.Drawing.Point(229, 537);
-            this.panel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(131, 156);
-            this.panel4.TabIndex = 3;
+            this.panel_Enric.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Enric.Location = new System.Drawing.Point(229, 537);
+            this.panel_Enric.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_Enric.Name = "panel_Enric";
+            this.panel_Enric.Size = new System.Drawing.Size(131, 156);
+            this.panel_Enric.TabIndex = 3;
             // 
-            // panel15
+            // panel_Julen
             // 
-            this.panel15.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel15.BackgroundImage")));
-            this.panel15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel15.Location = new System.Drawing.Point(824, 50);
-            this.panel15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(131, 156);
-            this.panel15.TabIndex = 11;
+            this.panel_Julen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Julen.Location = new System.Drawing.Point(824, 50);
+            this.panel_Julen.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_Julen.Name = "panel_Julen";
+            this.panel_Julen.Size = new System.Drawing.Size(131, 156);
+            this.panel_Julen.TabIndex = 11;
             // 
-            // panel8
+            // panel_Izan
             // 
-            this.panel8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel8.BackgroundImage")));
-            this.panel8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel8.Location = new System.Drawing.Point(429, 537);
-            this.panel8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(131, 156);
-            this.panel8.TabIndex = 7;
+            this.panel_Izan.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Izan.Location = new System.Drawing.Point(429, 537);
+            this.panel_Izan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_Izan.Name = "panel_Izan";
+            this.panel_Izan.Size = new System.Drawing.Size(131, 156);
+            this.panel_Izan.TabIndex = 7;
             // 
-            // panel2
+            // panel_Andrea
             // 
-            this.panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel2.BackgroundImage")));
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel2.Location = new System.Drawing.Point(32, 535);
-            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(131, 156);
-            this.panel2.TabIndex = 1;
+            this.panel_Andrea.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Andrea.Location = new System.Drawing.Point(32, 535);
+            this.panel_Andrea.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_Andrea.Name = "panel_Andrea";
+            this.panel_Andrea.Size = new System.Drawing.Size(131, 156);
+            this.panel_Andrea.TabIndex = 1;
             // 
-            // panel9
+            // panel_David
             // 
-            this.panel9.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel9.BackgroundImage")));
-            this.panel9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel9.Location = new System.Drawing.Point(627, 299);
-            this.panel9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(131, 156);
-            this.panel9.TabIndex = 10;
+            this.panel_David.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_David.Location = new System.Drawing.Point(627, 299);
+            this.panel_David.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_David.Name = "panel_David";
+            this.panel_David.Size = new System.Drawing.Size(131, 156);
+            this.panel_David.TabIndex = 10;
             // 
-            // panel5
+            // panel_Victor
             // 
-            this.panel5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel5.BackgroundImage")));
-            this.panel5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel5.Location = new System.Drawing.Point(229, 297);
-            this.panel5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(131, 156);
-            this.panel5.TabIndex = 4;
+            this.panel_Victor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Victor.Location = new System.Drawing.Point(229, 297);
+            this.panel_Victor.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_Victor.Name = "panel_Victor";
+            this.panel_Victor.Size = new System.Drawing.Size(131, 156);
+            this.panel_Victor.TabIndex = 4;
             // 
-            // panel10
+            // panel_Mireia
             // 
-            this.panel10.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel10.BackgroundImage")));
-            this.panel10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel10.Location = new System.Drawing.Point(429, 297);
-            this.panel10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(131, 156);
-            this.panel10.TabIndex = 6;
+            this.panel_Mireia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Mireia.Location = new System.Drawing.Point(429, 297);
+            this.panel_Mireia.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_Mireia.Name = "panel_Mireia";
+            this.panel_Mireia.Size = new System.Drawing.Size(131, 156);
+            this.panel_Mireia.TabIndex = 6;
             // 
-            // panel3
+            // panel_Arnau
             // 
-            this.panel3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel3.BackgroundImage")));
-            this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel3.Location = new System.Drawing.Point(32, 295);
-            this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(131, 156);
-            this.panel3.TabIndex = 1;
+            this.panel_Arnau.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Arnau.Location = new System.Drawing.Point(32, 295);
+            this.panel_Arnau.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_Arnau.Name = "panel_Arnau";
+            this.panel_Arnau.Size = new System.Drawing.Size(131, 156);
+            this.panel_Arnau.TabIndex = 1;
             // 
-            // panel11
+            // panel_Cristina_R
             // 
-            this.panel11.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel11.BackgroundImage")));
-            this.panel11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel11.Location = new System.Drawing.Point(627, 50);
-            this.panel11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(131, 156);
-            this.panel11.TabIndex = 8;
+            this.panel_Cristina_R.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Cristina_R.Location = new System.Drawing.Point(627, 50);
+            this.panel_Cristina_R.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_Cristina_R.Name = "panel_Cristina_R";
+            this.panel_Cristina_R.Size = new System.Drawing.Size(131, 156);
+            this.panel_Cristina_R.TabIndex = 8;
             // 
-            // panel6
+            // panel_Antonia
             // 
-            this.panel6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel6.BackgroundImage")));
-            this.panel6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel6.Location = new System.Drawing.Point(229, 48);
-            this.panel6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(131, 156);
-            this.panel6.TabIndex = 2;
+            this.panel_Antonia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Antonia.Location = new System.Drawing.Point(229, 48);
+            this.panel_Antonia.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_Antonia.Name = "panel_Antonia";
+            this.panel_Antonia.Size = new System.Drawing.Size(131, 156);
+            this.panel_Antonia.TabIndex = 2;
             // 
-            // panel12
+            // panel_Javi
             // 
-            this.panel12.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel12.BackgroundImage")));
-            this.panel12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel12.Location = new System.Drawing.Point(429, 48);
-            this.panel12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(131, 156);
-            this.panel12.TabIndex = 5;
+            this.panel_Javi.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Javi.Location = new System.Drawing.Point(429, 48);
+            this.panel_Javi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_Javi.Name = "panel_Javi";
+            this.panel_Javi.Size = new System.Drawing.Size(131, 156);
+            this.panel_Javi.TabIndex = 5;
             // 
-            // panel1
+            // panel_Emma
             // 
-            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Location = new System.Drawing.Point(32, 46);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(131, 156);
-            this.panel1.TabIndex = 0;
+            this.panel_Emma.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Emma.Location = new System.Drawing.Point(32, 46);
+            this.panel_Emma.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel_Emma.Name = "panel_Emma";
+            this.panel_Emma.Size = new System.Drawing.Size(131, 156);
+            this.panel_Emma.TabIndex = 0;
             // 
             // Pregunta
             // 
@@ -784,36 +795,6 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Pregunta del oponente";
             // 
-            // dataGrid_conectados
-            // 
-            this.dataGrid_conectados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGrid_conectados.Location = new System.Drawing.Point(35, 342);
-            this.dataGrid_conectados.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dataGrid_conectados.Name = "dataGrid_conectados";
-            this.dataGrid_conectados.RowTemplate.Height = 24;
-            this.dataGrid_conectados.Size = new System.Drawing.Size(201, 150);
-            this.dataGrid_conectados.TabIndex = 6;
-            // 
-            // Conectados_button
-            // 
-            this.Conectados_button.Location = new System.Drawing.Point(35, 297);
-            this.Conectados_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Conectados_button.Name = "Conectados_button";
-            this.Conectados_button.Size = new System.Drawing.Size(201, 34);
-            this.Conectados_button.TabIndex = 7;
-            this.Conectados_button.Text = "¿Quién está conectado?";
-            this.Conectados_button.UseVisualStyleBackColor = true;
-            // 
-            // Invitar_button
-            // 
-            this.Invitar_button.Location = new System.Drawing.Point(360, 775);
-            this.Invitar_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Invitar_button.Name = "Invitar_button";
-            this.Invitar_button.Size = new System.Drawing.Size(75, 23);
-            this.Invitar_button.TabIndex = 8;
-            this.Invitar_button.Text = "Invitar";
-            this.Invitar_button.UseVisualStyleBackColor = true;
-            // 
             // Chat_groupBox
             // 
             this.Chat_groupBox.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -826,25 +807,144 @@
             this.Chat_groupBox.TabStop = false;
             this.Chat_groupBox.Text = "Chat";
             // 
-            // Conectados_label
+            // Invitacion_groupBox
             // 
-            this.Conectados_label.AutoSize = true;
-            this.Conectados_label.Location = new System.Drawing.Point(265, 352);
-            this.Conectados_label.Name = "Conectados_label";
-            this.Conectados_label.Size = new System.Drawing.Size(46, 17);
-            this.Conectados_label.TabIndex = 10;
-            this.Conectados_label.Text = "label8";
+            this.Invitacion_groupBox.BackColor = System.Drawing.Color.LightGreen;
+            this.Invitacion_groupBox.Controls.Add(this.rechazar_button);
+            this.Invitacion_groupBox.Controls.Add(this.aceptar_button);
+            this.Invitacion_groupBox.Controls.Add(this.invitacion_label);
+            this.Invitacion_groupBox.ForeColor = System.Drawing.Color.Black;
+            this.Invitacion_groupBox.Location = new System.Drawing.Point(31, 283);
+            this.Invitacion_groupBox.Name = "Invitacion_groupBox";
+            this.Invitacion_groupBox.Size = new System.Drawing.Size(253, 136);
+            this.Invitacion_groupBox.TabIndex = 14;
+            this.Invitacion_groupBox.TabStop = false;
+            this.Invitacion_groupBox.Text = "Tienes una invitación";
+            // 
+            // rechazar_button
+            // 
+            this.rechazar_button.Location = new System.Drawing.Point(140, 87);
+            this.rechazar_button.Name = "rechazar_button";
+            this.rechazar_button.Size = new System.Drawing.Size(98, 38);
+            this.rechazar_button.TabIndex = 2;
+            this.rechazar_button.Text = "Rechazar";
+            this.rechazar_button.UseVisualStyleBackColor = true;
+            this.rechazar_button.Click += new System.EventHandler(this.rechazar_button_Click);
+            // 
+            // aceptar_button
+            // 
+            this.aceptar_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.aceptar_button.Location = new System.Drawing.Point(29, 87);
+            this.aceptar_button.Name = "aceptar_button";
+            this.aceptar_button.Size = new System.Drawing.Size(97, 38);
+            this.aceptar_button.TabIndex = 1;
+            this.aceptar_button.Text = "Aceptar";
+            this.aceptar_button.UseVisualStyleBackColor = false;
+            this.aceptar_button.Click += new System.EventHandler(this.aceptar_button_Click);
+            // 
+            // invitacion_label
+            // 
+            this.invitacion_label.AutoSize = true;
+            this.invitacion_label.Location = new System.Drawing.Point(26, 39);
+            this.invitacion_label.Name = "invitacion_label";
+            this.invitacion_label.Size = new System.Drawing.Size(186, 17);
+            this.invitacion_label.TabIndex = 0;
+            this.invitacion_label.Text = "No tienes ninguna invitación";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.IndianRed;
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Location = new System.Drawing.Point(297, 283);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(194, 96);
+            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Visible = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(15, 38);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(172, 17);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Esperando una respuesta";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.Conectados_Grid);
+            this.groupBox2.Controls.Add(this.Invitar);
+            this.groupBox2.Location = new System.Drawing.Point(27, 437);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(209, 215);
+            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "En línea:";
+            // 
+            // Conectados_Grid
+            // 
+            this.Conectados_Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Conectados_Grid.Location = new System.Drawing.Point(13, 20);
+            this.Conectados_Grid.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Conectados_Grid.Name = "Conectados_Grid";
+            this.Conectados_Grid.RowTemplate.Height = 24;
+            this.Conectados_Grid.Size = new System.Drawing.Size(187, 150);
+            this.Conectados_Grid.TabIndex = 6;
+            this.Conectados_Grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Conectados_Grid_CellContentClick);
+            // 
+            // Invitar
+            // 
+            this.Invitar.Location = new System.Drawing.Point(13, 174);
+            this.Invitar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Invitar.Name = "Invitar";
+            this.Invitar.Size = new System.Drawing.Size(187, 34);
+            this.Invitar.TabIndex = 7;
+            this.Invitar.Text = "Invitar";
+            this.Invitar.UseVisualStyleBackColor = true;
+            this.Invitar.Click += new System.EventHandler(this.Invitar_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.groupBox3.Controls.Add(this.Seleciconar_button);
+            this.groupBox3.Controls.Add(this.panel_Seleccionado);
+            this.groupBox3.Location = new System.Drawing.Point(296, 496);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(200, 302);
+            this.groupBox3.TabIndex = 17;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "¿Quieres que este sea tu personaje?";
+            // 
+            // Seleciconar_button
+            // 
+            this.Seleciconar_button.Location = new System.Drawing.Point(34, 233);
+            this.Seleciconar_button.Name = "Seleciconar_button";
+            this.Seleciconar_button.Size = new System.Drawing.Size(131, 33);
+            this.Seleciconar_button.TabIndex = 1;
+            this.Seleciconar_button.Text = "Confirmar";
+            this.Seleciconar_button.UseVisualStyleBackColor = true;
+            this.Seleciconar_button.Click += new System.EventHandler(this.Seleciconar_button_Click);
+            // 
+            // panel_Seleccionado
+            // 
+            this.panel_Seleccionado.BackColor = System.Drawing.Color.LightGray;
+            this.panel_Seleccionado.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_Seleccionado.Location = new System.Drawing.Point(34, 56);
+            this.panel_Seleccionado.Name = "panel_Seleccionado";
+            this.panel_Seleccionado.Size = new System.Drawing.Size(131, 158);
+            this.panel_Seleccionado.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1371, 750);
-            this.Controls.Add(this.Conectados_label);
+            this.ClientSize = new System.Drawing.Size(1675, 916);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.Invitacion_groupBox);
             this.Controls.Add(this.Chat_groupBox);
-            this.Controls.Add(this.Invitar_button);
-            this.Controls.Add(this.Conectados_button);
-            this.Controls.Add(this.dataGrid_conectados);
             this.Controls.Add(this.Responde);
             this.Controls.Add(this.Turno);
             this.Controls.Add(this.Pregunta);
@@ -868,9 +968,14 @@
             this.Turno.PerformLayout();
             this.Responde.ResumeLayout(false);
             this.Responde.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid_conectados)).EndInit();
+            this.Invitacion_groupBox.ResumeLayout(false);
+            this.Invitacion_groupBox.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Conectados_Grid)).EndInit();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -903,32 +1008,32 @@
         private System.Windows.Forms.Button Gabri_button;
         private System.Windows.Forms.Button Julen_button;
         private System.Windows.Forms.Button Angela_button;
-        private System.Windows.Forms.Button Dvid_Button;
+        private System.Windows.Forms.Button David_Button;
         private System.Windows.Forms.Button CristinaR_button;
         private System.Windows.Forms.Button Izan_button;
         private System.Windows.Forms.Button Enric_button;
         private System.Windows.Forms.Button Mireia_button;
         private System.Windows.Forms.Button Victor_button;
         private System.Windows.Forms.Button Javi_button;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button Antonia_button;
         private System.Windows.Forms.Button Andrea_button;
         private System.Windows.Forms.Button Arnau_button;
         private System.Windows.Forms.Button Emma_button;
-        private System.Windows.Forms.Panel panel13;
-        private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Panel panel14;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Panel panel15;
-        private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Panel panel12;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel_Cristina_B;
+        private System.Windows.Forms.Panel panel_Angela;
+        private System.Windows.Forms.Panel panel_Gabri;
+        private System.Windows.Forms.Panel panel_Enric;
+        private System.Windows.Forms.Panel panel_Julen;
+        private System.Windows.Forms.Panel panel_Izan;
+        private System.Windows.Forms.Panel panel_Andrea;
+        private System.Windows.Forms.Panel panel_David;
+        private System.Windows.Forms.Panel panel_Victor;
+        private System.Windows.Forms.Panel panel_Mireia;
+        private System.Windows.Forms.Panel panel_Arnau;
+        private System.Windows.Forms.Panel panel_Cristina_R;
+        private System.Windows.Forms.Panel panel_Antonia;
+        private System.Windows.Forms.Panel panel_Javi;
+        private System.Windows.Forms.Panel panel_Emma;
         private System.Windows.Forms.GroupBox Pregunta;
         private System.Windows.Forms.GroupBox Turno;
         private System.Windows.Forms.Button Enviar_button;
@@ -938,11 +1043,19 @@
         private System.Windows.Forms.Button No_button;
         private System.Windows.Forms.Button Si_button;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DataGridView dataGrid_conectados;
-        private System.Windows.Forms.Button Conectados_button;
-        private System.Windows.Forms.Button Invitar_button;
         private System.Windows.Forms.GroupBox Chat_groupBox;
-        private System.Windows.Forms.Label Conectados_label;
+        private System.Windows.Forms.GroupBox Invitacion_groupBox;
+        private System.Windows.Forms.Button rechazar_button;
+        private System.Windows.Forms.Button aceptar_button;
+        private System.Windows.Forms.Label invitacion_label;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataGridView Conectados_Grid;
+        private System.Windows.Forms.Button Invitar;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button Seleciconar_button;
+        private System.Windows.Forms.Panel panel_Seleccionado;
     }
 }
 

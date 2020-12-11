@@ -149,7 +149,7 @@ void *AtenderCliente( void *socket)
 		exit(1);
 	}
 	
-	int sock_conn, socket_invitador,socket_invitado;
+	int sock_conn, socket_invitador,socket_jugador2;
 	int *s;
 	s=(int *) socket;
 	sock_conn=*s;
@@ -182,7 +182,7 @@ void *AtenderCliente( void *socket)
 		
 		//Escribimos el nombre en la consola
 		
-		printf ("Se ha conectado: %s\n",buff);
+		printf ("Mensaje recibido: %s\n",buff);
 		
 		
 		char *p = strtok( buff, "/");
@@ -510,23 +510,35 @@ void *AtenderCliente( void *socket)
 			}
 				
 		}
+		
 		else if (codigo == 7)
-			// cuando el cliente invita a otra persona
+			// cuando el usuario invita a otra persona
+			// el cleinte envia un mensaje al servidor con el formato:
+			// 7/nombre de la persona a la que quiere invitar
 		{
 			char nombre_invitado [20];
 			p = strtok( NULL, "/");
 			strcpy (nombre_invitado, p);
 			
-			socket_invitado = Damesocket(&milista,nombre_invitado);
+			socket_jugador2 = Damesocket(&milista,nombre_invitado);
+			
+			printf("%d, %s\n",socket_jugador2,nombre);
+			
+			// creamos el mensaje que le llegara al invitado
+			// que consiste en 7/nombre del usuario que invita
 			sprintf (buff2,"7/%s",nombre);
 			
-			write (socket_invitado,buff2, strlen(buff2));
+			// enviamos el socket solo a la persona que queremos invitar
+			write (socket_jugador2,buff2, strlen(buff2));
 			printf("%s\n",buff2);
 			strcpy(buff2,"");
 			
 		}
+		
 		else if (codigo == 8)
 			// cuando invitan al cliente
+			// el cliente envia un mensaje al servidor con el formato:
+			// 8/nombre de la persona que le ha invitado/respuesta
 		{
 			char nombre_invitador [20];
 			p = strtok( NULL, "/");
@@ -535,25 +547,39 @@ void *AtenderCliente( void *socket)
 			char respuesta[1];
 			strcpy (respuesta, p);
 			
-			socket_invitador = Damesocket(&milista,nombre_invitador);
+			socket_jugador2 = Damesocket(&milista,nombre_invitador);
 			
+			printf("%d, %s\n",socket_jugador2,nombre);
+			
+			// creamos el mensaje que le llegara a la persona que invita
+			// que consiste en 8/respuesta
 			sprintf (buff2,"8/%s",respuesta);
 			
-			write (socket_invitador,buff2, strlen(buff2));
+			//enviamos el socket solo a la persona que ha hecho la invitacion
+			write (socket_jugador2,buff2, strlen(buff2));
 			printf("%s\n",buff2);
 			strcpy(buff2,"");
 		}
+		else if(codigo==9)
+		{
+			p = strtok( NULL, "/");
+			char mensaje[400];
+			strcpy (mensaje, p);
+			sprintf(buff2,"9/%s",mensaje);
+			write (socket_jugador2,buff2, strlen(buff2));
+			printf("%d,%s\n",socket_jugador2,buff2);
+		}
 		
-		if((codigo!=0) && (codigo!=7) && (codigo!= 8))
+		if((codigo!=0) && (codigo!=7) && (codigo!= 8)&&(codigo!=9))
 		{
 			printf ("%s\n", buff2);
 			// Y lo enviamos
 			write (sock_conn,buff2, strlen(buff2));
 			
 			strcpy(buff2,"");
-			
-			
 		}
+		
+			
 		
 	}
 	
@@ -620,7 +646,7 @@ int main(int argc, char *argv[])
 	
 	// Atenderemos solo 7 peticione
 	//for(int i=0;i<7;i++){
-	pthread_t thread;
+	pthread_t thread[100];
 	i=0;
 	j=0;
 	
@@ -640,7 +666,7 @@ int main(int argc, char *argv[])
 		
 		// Crear thead y decirle lo que tiene que hacer
 		
-		pthread_create (&thread, NULL, AtenderCliente,&sockets[i]);
+		pthread_create (&thread[i], NULL, AtenderCliente,&sockets[i]);
 		i++;
 	}
 	

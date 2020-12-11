@@ -20,9 +20,9 @@ namespace V1
         int port = 9091;
         string ip = "192.168.1.55";
         //
-        string directorio = "C:/Users/mirei/OneDrive/Documents/UNI/2B/SO/Proyecto/Sucio/Proyecto/SO_V22/V1/bin/Debug/Fotos/";
+        string directorio = "C:/Users/mirei/OneDrive/Documents/UNI/2B/SO/Proyecto_SO/V1/bin/Debug/Fotos/";
         int conectado = 0;
-        string nombre, invitado;
+        string nombre, invitado,invitador;
         int num_conectados = 0;
         string[] conectados;
         List<string> lista_conectados = new List<string>();
@@ -85,16 +85,17 @@ namespace V1
             panel_Cristina_B.BackgroundImage = Image.FromFile(@lista.personaje[15].foto);
         }
 
-        delegate void DelegadoParaActualizarLista(string mensaje);
+        delegate void DelegadoParaActualizar(string mensaje);
+
+        delegate void DelegadoParaHacerVisible();
 
         public Form1()
         {
             InitializeComponent();
-            CheckForIllegalCrossThreadCalls = false;
+            //CheckForIllegalCrossThreadCalls = false;
             // Para que los elementos de los formularios puedan ser accedidos
             // desde threads diferentes
-
-
+            
             lista_personajes.personaje = new CPersonaje[16];
             int i = 0;
             while (i < 16)
@@ -106,6 +107,7 @@ namespace V1
         }
 
         private void Actualiza_Grid(string mensaje)
+            // actualiza la lista de conectados cada vez que se conecte un usuario
         {
             Conectados_Grid.ColumnCount = 1;
             Conectados_Grid.RowCount = num_conectados;
@@ -116,11 +118,30 @@ namespace V1
                 Conectados_Grid.Rows[i].Cells[0].Value = conectados[i];
         }
 
+        private void Actualiza_Invitacion_Label(string mensaje)
+        {
+            invitacion_label.Text = mensaje + " te ha invitado a una partida";
+            Invitacion_groupBox.Visible = true;
+        }
+
+        private void Actualiza_V_Conectarse()
+        {
+            groupBox_inciar.Visible = false;
+            groupBox_registro.Visible = false;
+            groupBox_consultas.Visible = true ;
+            Conectados_groupBox.Visible = true;
+        }
+
+        private void Chat(string mensaje)
+        {
+            Chat_listBox.Items.Add(mensaje);
+        }
+
         private void AtenderServidor()
         {
             while (true)
             {
-                //Recibimos la respuesta del servidor
+                // Recibimos la respuesta del servidor
                 byte[] msg2 = new byte[80];
                 server.Receive(msg2);
                 string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
@@ -128,6 +149,7 @@ namespace V1
                 int codigo = Convert.ToInt32(trozos[0]);
                 string mensaje;
                 if (codigo == 6)
+                    // el formato del mensaje sera 6/numero de conectados/lista
                 {
                     num_conectados = Convert.ToInt32(trozos[1]);
                     mensaje = trozos[2].Split('\0')[0];
@@ -144,6 +166,7 @@ namespace V1
                         else
                         {
                             ID_jugador = mensaje;
+                            Invoke(new DelegadoParaHacerVisible(Actualiza_V_Conectarse));
                             MessageBox.Show("Se ha iniciado sesión correctamente, tu ID de jugador es: " + mensaje);
                         }
                         break;
@@ -155,7 +178,9 @@ namespace V1
                         else
                         {
                             ID_jugador = mensaje;
+                            Invoke(new DelegadoParaHacerVisible(Actualiza_V_Conectarse));
                             MessageBox.Show("Te has registrado correctamente, tu ID de jugador es: " + mensaje);
+
                         }
 
                         break;
@@ -173,15 +198,16 @@ namespace V1
                         break;
 
                     case 6: // conectados
-                        Conectados_Grid.Invoke(new DelegadoParaActualizarLista(Actualiza_Grid), new object[] { mensaje });
+                        Conectados_Grid.Invoke(new DelegadoParaActualizar(Actualiza_Grid), new object[] { mensaje });
                         break;
 
                     case 7: // ivitación
-                        invitacion_label.Text = mensaje + " te ha invitado a una partida";
-                        //Invitacion_groupBox.Visible = true;
+                        invitador = mensaje;
+                        invitacion_label.Invoke(new DelegadoParaActualizar(Actualiza_Invitacion_Label), new object [] { mensaje });
                         break;
 
                     case 8: // respuesta a la invitacion
+                        // si han aceptado la invitación la respuesta será 1, sinó será 0
                         int respuesta = Convert.ToInt32(mensaje);
                         if (respuesta == 0)
                             MessageBox.Show("Han rechazado tu invitación");
@@ -196,8 +222,12 @@ namespace V1
                             Responde.Visible = true;
                             Chat_groupBox.Visible = true;*/
                         }
-                        groupBox1.Visible = false;
+                        //groupBox1.Visible = false;
                         break;
+                    case 9: //recibe un mensaje en el chat
+                        Chat_listBox.Invoke(new DelegadoParaActualizar(Chat), new object[] { mensaje });
+                        break;
+
 
                 }
             }
@@ -289,9 +319,7 @@ namespace V1
                 atender = new Thread(ts);
                 atender.Start();
 
-                groupBox_inciar.Visible = false;
-                groupBox_registro.Visible = false;
-                groupBox_consultas.Visible = true;
+               
 
             }
             if ((Nombre_Registro.Text == "") || (Contraseña_Registro.Text == ""))
@@ -344,10 +372,6 @@ namespace V1
             byte[] msg = System.Text.Encoding.ASCII.GetBytes(msj);
             server.Send(msg);
 
-            groupBox_inciar.Visible = false;
-            groupBox_registro.Visible = false;
-            groupBox_consultas.Visible = true;
-
         }
 
         private void Desconectar_Click(object sender, EventArgs e)
@@ -379,11 +403,11 @@ namespace V1
         private void aceptar_button_Click(object sender, EventArgs e)
         //Cuando el cliente acepta la invitacion enviamos un 1 al servidor
         {
-            string msj = "8/" + nombre + "/1";
+            string msj = "8/" + invitador + "/1";
             byte[] msg = System.Text.Encoding.ASCII.GetBytes(msj);
             server.Send(msg);
 
-            //Invitacion_groupBox.Visible = false;
+            Invitacion_groupBox.Visible = false;
             /*Conectados_groupBox.Visible = false;
             Tablero.Visible = true;
             Turno.Visible = true;
@@ -400,7 +424,7 @@ namespace V1
             byte[] msg = System.Text.Encoding.ASCII.GetBytes(msj);
             server.Send(msg);
 
-            //Invitacion_groupBox.Visible = false;
+            Invitacion_groupBox.Visible = false;
         }
 
         private void Conectados_Grid_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -775,6 +799,22 @@ namespace V1
                 }
             }
         }
+
+        private void Enviar_Click(object sender, EventArgs e)
+        {
+            string msj = "9/" + nombre + ": " + Chat_TextBox.Text;
+            byte[] msg = System.Text.Encoding.ASCII.GetBytes(msj);
+            server.Send(msg);
+
+            string texto_chat = "Tú: " + Chat_TextBox.Text;
+            Chat_listBox.Items.Add(texto_chat);
+
+            Chat_TextBox.Text = "";
+        }
+
+        
+
+
 
     }
 }

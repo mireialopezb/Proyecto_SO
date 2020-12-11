@@ -91,13 +91,16 @@
             this.Si_button = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.Chat_groupBox = new System.Windows.Forms.GroupBox();
+            this.Chat_listBox = new System.Windows.Forms.ListBox();
+            this.Enviar = new System.Windows.Forms.Button();
+            this.Chat_TextBox = new System.Windows.Forms.TextBox();
             this.Invitacion_groupBox = new System.Windows.Forms.GroupBox();
             this.rechazar_button = new System.Windows.Forms.Button();
             this.aceptar_button = new System.Windows.Forms.Button();
             this.invitacion_label = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Conectados_groupBox = new System.Windows.Forms.GroupBox();
             this.Conectados_Grid = new System.Windows.Forms.DataGridView();
             this.Invitar = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -110,9 +113,10 @@
             this.Pregunta.SuspendLayout();
             this.Turno.SuspendLayout();
             this.Responde.SuspendLayout();
+            this.Chat_groupBox.SuspendLayout();
             this.Invitacion_groupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.Conectados_groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Conectados_Grid)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
@@ -798,6 +802,9 @@
             // Chat_groupBox
             // 
             this.Chat_groupBox.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.Chat_groupBox.Controls.Add(this.Chat_listBox);
+            this.Chat_groupBox.Controls.Add(this.Enviar);
+            this.Chat_groupBox.Controls.Add(this.Chat_TextBox);
             this.Chat_groupBox.Location = new System.Drawing.Point(1544, 480);
             this.Chat_groupBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Chat_groupBox.Name = "Chat_groupBox";
@@ -806,6 +813,37 @@
             this.Chat_groupBox.TabIndex = 9;
             this.Chat_groupBox.TabStop = false;
             this.Chat_groupBox.Text = "Chat";
+            // 
+            // Chat_listBox
+            // 
+            this.Chat_listBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Chat_listBox.FormattingEnabled = true;
+            this.Chat_listBox.HorizontalScrollbar = true;
+            this.Chat_listBox.ItemHeight = 16;
+            this.Chat_listBox.Location = new System.Drawing.Point(11, 20);
+            this.Chat_listBox.Name = "Chat_listBox";
+            this.Chat_listBox.Size = new System.Drawing.Size(257, 244);
+            this.Chat_listBox.TabIndex = 26;
+            this.Chat_listBox.TabStop = false;
+            this.Chat_listBox.UseTabStops = false;
+            this.Chat_listBox.UseWaitCursor = true;
+            // 
+            // Enviar
+            // 
+            this.Enviar.Location = new System.Drawing.Point(210, 274);
+            this.Enviar.Name = "Enviar";
+            this.Enviar.Size = new System.Drawing.Size(58, 27);
+            this.Enviar.TabIndex = 2;
+            this.Enviar.Text = "Enviar";
+            this.Enviar.UseVisualStyleBackColor = true;
+            this.Enviar.Click += new System.EventHandler(this.Enviar_Click);
+            // 
+            // Chat_TextBox
+            // 
+            this.Chat_TextBox.Location = new System.Drawing.Point(11, 276);
+            this.Chat_TextBox.Name = "Chat_TextBox";
+            this.Chat_TextBox.Size = new System.Drawing.Size(194, 22);
+            this.Chat_TextBox.TabIndex = 1;
             // 
             // Invitacion_groupBox
             // 
@@ -820,6 +858,7 @@
             this.Invitacion_groupBox.TabIndex = 14;
             this.Invitacion_groupBox.TabStop = false;
             this.Invitacion_groupBox.Text = "Tienes una invitación";
+            this.Invitacion_groupBox.Visible = false;
             // 
             // rechazar_button
             // 
@@ -871,23 +910,26 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Esperando una respuesta";
             // 
-            // groupBox2
+            // Conectados_groupBox
             // 
-            this.groupBox2.Controls.Add(this.Conectados_Grid);
-            this.groupBox2.Controls.Add(this.Invitar);
-            this.groupBox2.Location = new System.Drawing.Point(27, 437);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(209, 215);
-            this.groupBox2.TabIndex = 13;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "En línea:";
+            this.Conectados_groupBox.Controls.Add(this.Conectados_Grid);
+            this.Conectados_groupBox.Controls.Add(this.Invitar);
+            this.Conectados_groupBox.Location = new System.Drawing.Point(27, 437);
+            this.Conectados_groupBox.Name = "Conectados_groupBox";
+            this.Conectados_groupBox.Size = new System.Drawing.Size(209, 215);
+            this.Conectados_groupBox.TabIndex = 13;
+            this.Conectados_groupBox.TabStop = false;
+            this.Conectados_groupBox.Text = "En línea:";
+            this.Conectados_groupBox.Visible = false;
             // 
             // Conectados_Grid
             // 
             this.Conectados_Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Conectados_Grid.ColumnHeadersVisible = false;
             this.Conectados_Grid.Location = new System.Drawing.Point(13, 20);
             this.Conectados_Grid.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Conectados_Grid.Name = "Conectados_Grid";
+            this.Conectados_Grid.RowHeadersVisible = false;
             this.Conectados_Grid.RowTemplate.Height = 24;
             this.Conectados_Grid.Size = new System.Drawing.Size(187, 150);
             this.Conectados_Grid.TabIndex = 6;
@@ -939,9 +981,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1675, 916);
+            this.ClientSize = new System.Drawing.Size(1872, 821);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.Conectados_groupBox);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Invitacion_groupBox);
             this.Controls.Add(this.Chat_groupBox);
@@ -968,11 +1010,13 @@
             this.Turno.PerformLayout();
             this.Responde.ResumeLayout(false);
             this.Responde.PerformLayout();
+            this.Chat_groupBox.ResumeLayout(false);
+            this.Chat_groupBox.PerformLayout();
             this.Invitacion_groupBox.ResumeLayout(false);
             this.Invitacion_groupBox.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
+            this.Conectados_groupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Conectados_Grid)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -1050,12 +1094,15 @@
         private System.Windows.Forms.Label invitacion_label;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox Conectados_groupBox;
         private System.Windows.Forms.DataGridView Conectados_Grid;
         private System.Windows.Forms.Button Invitar;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button Seleciconar_button;
         private System.Windows.Forms.Panel panel_Seleccionado;
+        private System.Windows.Forms.Button Enviar;
+        private System.Windows.Forms.TextBox Chat_TextBox;
+        private System.Windows.Forms.ListBox Chat_listBox;
     }
 }
 
